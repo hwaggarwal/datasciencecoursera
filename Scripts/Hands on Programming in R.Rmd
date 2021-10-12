@@ -1,0 +1,265 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+
+```{r}
+x <-5
+x
+print(x)
+```
+```{r}
+x <- 11:30
+x
+```
+# Numbers
+# Attributes
+
+```{r}
+x <- c(0.5, 0.6) ## numeric
+x <- c(TRUE, FALSE) ## logical
+x<- c(T, F) ## logical
+x <- c("a", "b", "c")
+x <- c(1+0i, 2+4i)
+```
+
+```{r}
+x <- vector("numeric", length = 10)
+x
+x <- vector("logical", length = 10)
+x
+x <- vector("character", length = 10)
+x
+```
+Coercion
+
+```{r}
+y <- c(1.7, "a")
+y
+y <- c(TRUE, 2)
+y 
+y <- c("a", TRUE)
+y
+```
+attributes- R objects have attributes
+
+```{r}
+x <- 0:6
+class(x)
+
+class(as.numeric(x))
+as.logical(x)
+
+as.character(x)
+
+as.character(as.logical(x))
+
+y <- c("a", "b", "c")
+as.numeric(y)
+
+```
+Matrices
+```{r}
+m <- matrix(nrow = 2, ncol = 3)
+m
+dim(m)
+attributes(m)
+dim(m)[1]
+dim(m)[2]
+dim(m)[0]
+x
+
+attributes(x)
+
+```
+```{r}
+m <- matrix(1:6, nrow = 2, ncol = 3)
+m
+dim(m) <- c(6, 1)
+m
+dim(m) <- c(2, 3)
+m
+```
+```{r}
+m <- 1:10
+dim(m) <-c(2, 5)
+m
+n <- matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE)
+n
+```
+cbind
+rbind
+
+```{r}
+x <- 1:5
+y <- 6:10
+x_y <- cbind(x, y)
+x_y
+y_x <- rbind(x, y)
+y_x
+
+```
+Lists
+
+```{r}
+x <- list(1, "a", TRUE, 1+4i)
+x
+x[[1]]
+x[[2]]
+
+x <- vector("list", length = 5)
+x
+x[[1]] <- 10
+x
+```
+# Factors
+```{r}
+x <- factor(c("yes", "no", "yes", "yes", "no"))
+x
+table(x)
+unclass(x)
+x
+table(x)
+x
+```
+```{r}
+unclass(x)
+```
+Changing the order of the factors
+```{r}
+y <-c("night", "day", "day", "night", "cold")
+y <- factor(y)
+y
+print("Changed levels")
+y <- factor(y, levels = c("day", "night", "cold"))
+y
+```
+# Missing Values
+
+NA- has a class, like integer NA, character NA, etc.
+NaN- every NaN is also NA but not vice a versa
+
+```{r}
+x <- c(1, 2, NA, 10, 3)
+x
+is.na(x)
+is.nan(x)
+y <- c(1, 2, NaN, 10, 3)
+is.na(y)
+is.nan(y)
+```
+```{r}
+z <- c(1, 2, NA, NaN, 5, 6, NA)
+is.na(z)
+is.nan(z)
+```
+# Data Frames
+```{r}
+x<- data.frame(foo = 1:4, bar = c(T, T, F, F))
+x
+```
+```{r}
+y <- matrix(1:10)
+y
+y <- matrix(1: 10, nrow = 2, ncol = 5)
+y
+y<- data.frame(y)
+y
+y<- data.matrix(y)
+y
+class(y)
+nrow(y)
+ncol(y)
+```
+# Names
+```{r}
+x <- 1:3
+names(x)
+names(x) <- c("new", "old", "green")
+names(x)
+x
+# names[new] Error
+x["new"]
+x["old"]
+
+```
+```{r}
+x <- list("Los Angeles" = 1, Boston = 2, London = 3)
+x
+names(x)
+x
+```
+```{r}
+m <- matrix(1:4, nrow = 2, ncol = 2)
+m
+names(m)
+names(m) <- c("old", "new")
+names(m)
+
+dimnames(m) <- list(c("a", "b"), c("c", "d"))
+m
+m["a"]["d"]
+```
+```{r}
+n <- matrix (1:10, nrow = 2, ncol = 2)
+n
+dimnames(n) <- list(c("row1", "row2"), c("col1", "col2"))
+n
+```
+object ------->  col names    row names
+data frame  -->  names()        row.names()
+matrix ------->  colnames()     rownames()
+
+
+```{r}
+mat1 <- matrix(1:4, ncol = 2)
+mat1
+dataframe_1 <- data.frame(a = c(1:2), b = c(3:4))
+dataframe_1
+dimnames(mat1) <- list(c("a", "b"), c("c", "d"))
+mat1
+row.names(dataframe_1) <- c("c", "d")
+names(dataframe_1) <- c("a1", "b1")
+dataframe_1
+
+```
+# Getting Data In and Out of R
+
+#Quiz-1
+
+```{r}
+file1 <- read.table("hw1_data.csv", header = TRUE)
+```
+```{r}
+hw1_data[1:2,]
+x <- hw1_data[1]
+sum(x, na.rm = TRUE)
+sum(is.na(hw1_data[1]))
+mean(x, na.rm = FALSE)
+
+x <- hw1_data
+x["Temp"] >90
+row1 <- x["Ozone"] > 31 & x["Temp"] > 90
+mean(x[row1,]$Solar.R, na.rm = TRUE)
+a <- x$Month == 6
+mean(x[a,]$Temp, na.rm = TRUE)
+b <- x$Month == 5
+max(x[b, ]$Ozone, na.rm = TRUE)
+
+```
+
